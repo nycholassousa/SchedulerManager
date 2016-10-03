@@ -64,7 +64,7 @@ public class SJF extends Scheduler {
             waitTime += (returnAux - p.getArrivalTime() - p.getDuration());
         }
 
-        responseTime = waitTime; //SJF: tempo de resposta e de retorno são iguais
+        responseTime = waitTime; //SJF: tempo de resposta e de espera são iguais
 
         super.setAvgReturn((double) returnTime / totalProcess);
         super.setAvgResponse((double) responseTime / totalProcess);

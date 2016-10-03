@@ -29,7 +29,7 @@ public class FCFS extends Scheduler {
             returnTime += (returnAux - p.getArrivalTime());
             waitTime += (returnAux - p.getArrivalTime() - p.getDuration());
         }
-        responseTime = returnTime; //FCFS: tempo de resposta e de retorno são iguais
+        responseTime = waitTime; //FCFS: tempo de resposta e de espera são iguais
 
         super.setAvgReturn((double) returnTime / amountProcess);
         super.setAvgResponse((double) responseTime / amountProcess);
