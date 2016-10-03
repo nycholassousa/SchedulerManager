@@ -20,6 +20,10 @@ public class Process implements Comparable<Process> {
         this.remainingDuration = duration;
     }
 
+    /*
+    * Ordena a Lista de acordo com o tempo de chegada e duração
+    * 
+    */
     public int compareTo(Process aux) {
         if ((this.arrivalTime < aux.getArrivalTime() || this.arrivalTime == aux.getArrivalTime())
                 && (this.getDuration() < aux.getDuration())) {

@@ -52,13 +52,25 @@ public class RR extends Scheduler {
 
         prepareList(process, returnAux);
 
+        // enquanto houver processos na lista de prontos
         while (!listReady.isEmpty()) {
             Process p = listReady.remove(0);
 
+            /**
+             * Para obter o tempo de resposta é utilizado um Map, o key é o
+             * processo e o value é o tempo em que o processo foi atendido. Se o
+             * processo já foi atendido ele é ignorado e o tempo de resposta não
+             * é computado.
+             */
             if (!responseTime.containsKey(p.getId())) {
                 responseTime.put(p.getId(), returnAux - p.getArrivalTime());
             }
 
+            /**
+             * Verifica se o processo da vez possui tempo restante maior que o
+             * QUANTUM Caso contrário o resto do tempo é pego e o processo
+             * finalizado
+             */
             if (p.getRemainingDuration() > QUANTUM) {
                 p.setRemainingDuration(p.getRemainingDuration() - QUANTUM);
                 returnAux += QUANTUM;

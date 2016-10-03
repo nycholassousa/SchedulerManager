@@ -15,12 +15,14 @@ public class SJF extends Scheduler {
 
     private static List<Process> listReady = new ArrayList<Process>();
 
+    // Ordena a lista de acordo com o tempo de chegada e duração do processo e prepara uma lista de prontos
     private void prepareList(List<Process> process) {
         List<Process> p = new ArrayList<Process>(process);
         int returnSum = 0;
         int min = 0;
         int pivo = 0;
 
+        //Ordena para garantir a hierarquia da chegada
         Collections.sort(p);
         listReady.add(p.remove(0));
         returnSum = listReady.get(0).getDuration();
@@ -54,14 +56,15 @@ public class SJF extends Scheduler {
         int returnAux = arrivalMin(process);
         prepareList(process);
 
+        // enquanto existir processos
         while (!listReady.isEmpty()) {
-            Process p = listReady.remove(0);
+            Process p = listReady.remove(0); // obtem o primeiro da fila e o remove
             returnAux += p.getDuration();
             returnTime += (returnAux - p.getArrivalTime());
             waitTime += (returnAux - p.getArrivalTime() - p.getDuration());
         }
 
-        responseTime = waitTime;
+        responseTime = waitTime; //SJF: tempo de resposta e de retorno são iguais
 
         super.setAvgReturn((double) returnTime / totalProcess);
         super.setAvgResponse((double) responseTime / totalProcess);

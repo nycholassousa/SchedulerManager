@@ -22,13 +22,14 @@ public class FCFS extends Scheduler {
         int amountProcess = process.size();
         int returnAux = arrivalMin(process);
 
+        // enquanto existir processos
         while (!listReady.isEmpty()) {
-            Process p = listReady.remove(0);
+            Process p = listReady.remove(0); //pega o primeiro da fila e o remove
             returnAux += p.getDuration();
             returnTime += (returnAux - p.getArrivalTime());
             waitTime += (returnAux - p.getArrivalTime() - p.getDuration());
         }
-        responseTime = returnTime;
+        responseTime = returnTime; //FCFS: tempo de resposta e de retorno são iguais
 
         super.setAvgReturn((double) returnTime / amountProcess);
         super.setAvgResponse((double) responseTime / amountProcess);
