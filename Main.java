@@ -29,6 +29,7 @@ public class Main {
         FCFS fcfs = new FCFS(processList);
         SJF sjf = new SJF(processList);
         RR rr = new RR(processList);
+		
         fcfs.print();
         sjf.print();
         rr.print();
