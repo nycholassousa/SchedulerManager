@@ -93,6 +93,6 @@ public class RR extends Scheduler {
     }
 
     public void print() {
-        super.print("FCFS");
+        super.print("RR");
     }
 }
