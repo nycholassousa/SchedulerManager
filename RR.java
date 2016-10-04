@@ -36,7 +36,7 @@ public class RR extends Scheduler {
         }
     }
 
-    private int sumResponseTime() {
+    private int responseTimeTotal() {
         int sumResposta = 0;
         for (int key : responseTime.keySet()) {
             sumResposta += responseTime.get(key);
@@ -48,47 +48,38 @@ public class RR extends Scheduler {
         int returnTime = 0;
         int waitTime = 0;
         int totalProcess = super.getAmountOfProcess(process);
-        int returnAux = arrivalMin(process);
+        int arrivalProcess = arrivalMin(process);
 
-        prepareList(process, returnAux);
+        prepareList(process, arrivalProcess);
 
         // enquanto houver processos na lista de prontos
         while (!listReady.isEmpty()) {
             Process p = listReady.remove(0);
 
-            /**
-             * Para obter o tempo de resposta é utilizado um Map, o key é o
-             * processo e o value é o tempo em que o processo foi atendido. Se o
-             * processo já foi atendido ele é ignorado e o tempo de resposta não
-             * é computado.
-             */
+            //key: processo
+            //value: tempo em que foi atendido
             if (!responseTime.containsKey(p.getId())) {
-                responseTime.put(p.getId(), returnAux - p.getArrivalTime());
+                responseTime.put(p.getId(), arrivalProcess - p.getArrivalTime());
             }
 
-            /**
-             * Verifica se o processo da vez possui tempo restante maior que o
-             * QUANTUM Caso contrário o resto do tempo é pego e o processo
-             * finalizado
-             */
             if (p.getRemainingDuration() > QUANTUM) {
                 p.setRemainingDuration(p.getRemainingDuration() - QUANTUM);
-                returnAux += QUANTUM;
-                prepareList(process, returnAux);
+                arrivalProcess += QUANTUM;
+                prepareList(process, arrivalProcess);
 
                 listReady.add(p);
             } else {
-                returnAux += p.getRemainingDuration();
+                arrivalProcess += p.getRemainingDuration();
             }
 
             if (!listReady.contains(p)) {
-                returnTime += (returnAux - p.getArrivalTime());
-                waitTime += (returnAux - p.getArrivalTime() - p.getDuration());
+                returnTime += (arrivalProcess - p.getArrivalTime());
+                waitTime += (arrivalProcess - p.getArrivalTime() - p.getDuration());
             }
         }
 
         super.setAvgReturn((float) returnTime / totalProcess);
-        super.setAvgResponse((float) sumResponseTime() / totalProcess);
+        super.setAvgResponse((float) responseTimeTotal() / totalProcess);
         super.setAvgWait((float) waitTime / totalProcess);
     }
 

@@ -8,7 +8,7 @@ package schedulermanager;
  */
 public class Process implements Comparable<Process> {
 
-    private int id;
+    private int id; //Necessário quando usar o RR
     private int arrivalTime;
     private int duration;
     private int remainingDuration;

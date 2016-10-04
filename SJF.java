@@ -53,15 +53,14 @@ public class SJF extends Scheduler {
         int responseTime = 0;
         int waitTime = 0;
         int totalProcess = super.getAmountOfProcess(process);
-        int returnAux = arrivalMin(process);
+        int arrivalProcess = arrivalMin(process);
         prepareList(process);
 
         // enquanto existir processos
-        while (!listReady.isEmpty()) {
-            Process p = listReady.remove(0); // obtem o primeiro da fila e o remove
-            returnAux += p.getDuration();
-            returnTime += (returnAux - p.getArrivalTime());
-            waitTime += (returnAux - p.getArrivalTime() - p.getDuration());
+        for (Process p: listReady) {
+            arrivalProcess += p.getDuration();
+            returnTime += (arrivalProcess - p.getArrivalTime());
+            waitTime += (arrivalProcess - p.getArrivalTime() - p.getDuration());
         }
 
         responseTime = waitTime; //SJF: tempo de resposta e de espera são iguais

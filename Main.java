@@ -16,14 +16,14 @@ public class Main {
     public static List<Process> processList = new ArrayList<Process>();
 
     public static void main(String[] args) {
-        int id = 0;
+        int processID = 0;
         while (true) {
             String in[] = input.nextLine().split(" ");
             if (in[0].isEmpty() || in[1].isEmpty()) {
                 input.close();
                 break;
             }
-            processList.add(new Process(++id, Integer.parseInt(in[0]), Integer.parseInt(in[1])));
+            processList.add(new Process(++processID, Integer.parseInt(in[0]), Integer.parseInt(in[1])));
         }
 
         FCFS fcfs = new FCFS(processList);

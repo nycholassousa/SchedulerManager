@@ -40,7 +40,7 @@ public class Scheduler {
     }
 
     public int arrivalMin(List<Process> process) {
-        int min = Integer.MAX_VALUE;
+        int min = process.get(0).getArrivalTime();
         for (Process p : process) {
             if (p.getArrivalTime() < min) {
                 min = p.getArrivalTime();
